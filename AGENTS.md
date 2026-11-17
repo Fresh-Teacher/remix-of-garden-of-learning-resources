@@ -1,0 +1,74 @@
+<!-- LOVABLE:BEGIN -->
+> [!IMPORTANT]
+> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
+> published git history — force pushing, or rebasing/amending/squashing commits
+> that are already pushed — as it rewrites history on Lovable's side and the
+> user will likely lose their project history.
+>
+> Commits you push to the connected branch sync back to Lovable and show up in
+> the editor, so keep the branch in a working state.
+
+## What Lovable manages
+
+Rules outside this block are the project's own. Change the pieces below in
+Lovable, not by hand. With the [Lovable MCP](https://mcp.lovable.dev)
+connected, `send_message` asks Lovable to do it; otherwise ask the user to
+use the editor.
+
+- **Database.** Do not add or edit `supabase/migrations/` or `drizzle/`.
+  Ask Lovable to change the schema.
+- **Generated files.** Do not edit a file whose header says it is automatically
+  generated.
+- **AI gateway.** Keep model calls on Lovable's gateway, and keep
+  `LOVABLE_API_KEY` out of browser code.
+- **Connectors.** Lovable provides native connectors. `list_connectors` shows
+  which are enabled; `add_connector` only returns the dashboard link. When a
+  connector is enabled, calls go through the connector gateway and need
+  `LOVABLE_API_KEY`. When Lovable does not provide one, users can bring their
+  own key and store it in Secrets.
+- **Secrets.** Lovable manages them. Do not put secret values in the repo.
+<!-- LOVABLE:END -->
+
+
+## Repository import
+- Preserve imported TanStack routes, shared library shell, and static catalogs to retain navigation and search behavior.
+- Rehome imported binary media with project-owned asset pointers so another project’s storage is not required.
+- Keep the current project runtime and generated route tree; repository imports must not replace deployment configuration or repository metadata.
+
+## Standalone exports
+- Keep Lovable media pointers in the working project; materialize and rewrite them only in an external source export so self-hosted media needs no Lovable proxy.
+- External hosting builds use the staged standalone builder to download validated media and rewrite references before compiling; this keeps deployed assets local without changing Lovable's working media pointers.
+- Use the export script to validate every downloaded media file and reject unmapped media references so exports cannot silently contain broken media.
+
+## External static deployment
+- Derive sitemap pages from explicit route decisions and registered legacy catalogs; prerender XML for Pages and verify each listed HTML file before deployment, excluding shell-only document/repository URLs and non-page-specific dates.
+- Keep GitHub Pages configuration separate from the Lovable runtime; prerender catalog URLs and convert directory output to literal legacy HTML files to preserve incoming links.
+- Deploy Pages only by manual workflow that materializes standalone source automatically; refuse unresolved media or missing page output so failed preparation cannot replace the live site.
+- Prefer dedicated TanStack shell files for Pages 404 output, falling back to the validated homepage when absent, so differing prerender layouts remain deployable.
+- Load AdSense only on the approved production hostname with the production flag; previews must not generate ad traffic.
+
+## Manual advertisements
+- Keep manual unit IDs in `src/data/ad-units.json` (null until supplied); render fixed-size labeled bands after eight catalog items and after document information, never inside resource cards or readers, to separate ads from downloads.
+- Queue each ad DOM element once and only on the approved production host; keep preview placeholders request-free and preserve the existing production bootstrap.
+
+## Exam collections
+- Build exam catalog pages, records and viewer index entries with `scripts/build_exams_catalog.py` from the exam repository tree, and wire class hubs to them with `scripts/link_exams_menus.py`, so adding a class folder needs no hand-edited catalog.
+- Generate class entries in the side drawer menu from class hub menus with `scripts/build_nav_menu.py` (run after editing any hub), so the drawer and class pages never drift.
+- Load the search index only when the visitor opens search, never on hover or focus, to spare mobile data.
+- Register empty exam collections for known classes as well as populated ones, so class buttons always reach a valid documents page.
+
+## Visitor notices
+- The install prompt is the only visitor notice; it opens only when the browser reports the app is installable.
+
+## Early interactions
+- Mark class and legacy dropdown triggers with `data-toggle="dropdown"`; the inline early-tap script (single source `src/lib/early-tap-script.js`) only applies direct page state (door, drawer, dropdown, outside-tap close) and components adopt that state on hydration, so no taps are queued or replayed.
+- Class hubs use native named details disclosures with existing entrance animations; the early script never handles these controls so opening and closing never depend on hydration, and eagerly load the small hub catalogs to avoid a menu skeleton barrier.
+
+<!-- AGENT-MEMORY:BEGIN -->
+- Scope document and information-page typography with explicit pixel sizes rather than root-relative units; imported legacy styles intentionally use a 10px root and must not shrink modern page text.
+<!-- AGENT-MEMORY:END -->
+
+- Keep source imports scoped to application files and export tooling; preserve this project’s runtime, generated routing, and repository metadata so deployment remains project-owned.
+- Catalog pages load their documents from one pre-baked file in `src/data/catalog/page-items/` (rebuild with `scripts/bake_page_items.py` after any catalog change), so a page costs one small request instead of joining hash shards on the phone.
+
+- Keep WhatsApp opening in native `<details>`, its finite typing sequence in CSS, and send/close/info actions in the shared inline listener so it works before hydration without React timers.

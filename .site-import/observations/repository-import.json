@@ -1,0 +1,74 @@
+{
+  "source": "https://github.com/Springing-Starz/fresh-roots-learning-garden",
+  "import_mode": "repository-code",
+  "source_browser_comparison": "Not applicable: repository code was requested; no live source website supplied.",
+  "tests": {
+    "files": 42,
+    "passed": 245
+  },
+  "checks": [
+    {
+      "control": "Library entrance and shelves",
+      "viewports": [
+        "1280x1800",
+        "390x844"
+      ],
+      "status": "passed",
+      "evidence": [
+        "/tmp/browser/repository-import/desktop-library.png",
+        "/tmp/browser/repository-import/phone-library.png"
+      ]
+    },
+    {
+      "control": "Primary Section > Primary One nested menu",
+      "viewports": [
+        "1280x1800",
+        "390x844"
+      ],
+      "status": "passed",
+      "expected": "Lesson Notes, Schemes Of Work, Past Papers",
+      "evidence": [
+        "/tmp/browser/repository-import/desktop-menu.png",
+        "/tmp/browser/repository-import/phone-menu.png"
+      ]
+    },
+    {
+      "control": "Homepage bottom wheel scrolling",
+      "viewports": [
+        "1280x1800",
+        "390x844"
+      ],
+      "status": "passed",
+      "evidence": [
+        "/tmp/browser/repository-import/desktop-bottom.png",
+        "/tmp/browser/repository-import/phone-bottom.png"
+      ]
+    },
+    {
+      "control": "Search p7 maths",
+      "viewport": "1280x1800",
+      "status": "passed",
+      "expected": "2616 real catalog results",
+      "evidence": "/tmp/browser/repository-import/desktop-search.png"
+    },
+    {
+      "control": "Open Primary One class",
+      "viewport": "1280x1800",
+      "status": "passed",
+      "destination": "/p1.html",
+      "evidence": "/tmp/browser/repository-import/desktop-class.png"
+    },
+    {
+      "control": "Real PDF vertical reader",
+      "viewport": "1280x1800",
+      "status": "passed",
+      "observed": "Rendered P.7 mathematics examination first page",
+      "evidence": "/tmp/browser/repository-import/vertical-document.png"
+    },
+    {
+      "control": "Every external document preview and Office viewer",
+      "status": "blocked",
+      "reason": "External file/viewer availability varies; not every remote document was verified."
+    }
+  ]
+}
