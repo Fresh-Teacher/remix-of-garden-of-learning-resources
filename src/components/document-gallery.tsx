@@ -12,6 +12,7 @@ import { searchTokens, suggestedSearch } from '@/lib/document-search';
 import { DocumentDownload, DocumentShare } from '@/components/document-actions';
 import { documentViewer } from '@/lib/document-viewer';
 import { pdfThumbnail, pdfPageCount } from '@/lib/pdf-thumbs';
+import { staticThumbnailUrl } from '@/lib/static-thumbs';
 import { documentPlaceholder } from '@/lib/document-placeholder';
 import styles from '@/styles/document-gallery.css?raw';
 import { AdBanner } from './ad-banner';
@@ -60,17 +61,35 @@ function showThumb(node: HTMLElement) {
       window.setTimeout(() => spinner.remove(), 200);
     }, Math.max(0, 400 - (Date.now() - started)));
   };
-  void pdfThumbnail(url).then(src => {
-    if (!src || !node.isConnected) { stop(); return; }
+  const showCover = (src: string, pages?: number) => {
+    if (!node.isConnected) { stop(); return; }
     const img = document.createElement('img');
     img.className = 'dg-thumb-cover'; img.alt = ''; img.decoding = 'async';
     img.onload = () => { img.classList.add('dg-thumb-cover-ready'); stop(); };
     img.onerror = stop;
     img.src = src;
     node.appendChild(img);
-    const pages = pdfPageCount(url);
     if (pages) { const tag = document.createElement('span'); tag.className = 'dg-page-count'; tag.textContent = `${pages} pages`; node.appendChild(tag); }
-  }).catch(stop);
+  };
+  const renderWithPdfJs = () => {
+    void pdfThumbnail(url).then(src => {
+      if (!src) { stop(); return; }
+      showCover(src, pdfPageCount(url));
+    }).catch(stop);
+  };
+  // Prefer the pre-generated WebP thumbnail the repository GitHub Action
+  // stores under `.thumbs/`; fall back to the client-side pdf.js renderer
+  // when it has not been generated yet.
+  const staticSrc = staticThumbnailUrl(url);
+  if (staticSrc) {
+    const probe = new Image();
+    probe.decoding = 'async';
+    probe.onload = () => showCover(staticSrc);
+    probe.onerror = renderWithPdfJs;
+    probe.src = staticSrc;
+  } else {
+    renderWithPdfJs();
+  }
 }
 function watchThumb(node: HTMLElement | null) {
   if (!node || typeof window === 'undefined') return;
