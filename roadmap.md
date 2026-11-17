@@ -8,3 +8,8 @@
 ## WhatsApp optimization
 - [x] Replace React chat state and timer chains with native disclosure, CSS animation and small vanilla actions.
 - [x] Verify message sending, encryption information, closing and pre-hydration mobile interactions.
+
+## Document-list performance
+- [ ] Replace document-list HTML parsing with a small shared catalog layout while preserving class menus.
+- [ ] Show cards immediately with lazy static covers, without automatic PDF rendering or viewer preloading.
+- [ ] Stop waiting for stylesheet downloads or hiding document pages; verify browsing, search and viewing on phone and desktop.
